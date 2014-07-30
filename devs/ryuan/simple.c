@@ -1,4 +1,4 @@
-// gcc simplebutton.cpp `pkg-config --cflags --libs elementary ewebkit2
+// gcc simplen.cpp `pkg-config --cflags --libs elementary ewebkit2
 #include <Elementary.h>
 #include <EWebKit2.h>
 
