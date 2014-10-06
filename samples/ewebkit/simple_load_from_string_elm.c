@@ -1,8 +1,12 @@
-// gcc simplen.cpp `pkg-config --cflags --libs elementary ewebkit2
+/* gcc simple_load_elm.c `pkg-config --cflags --libs elementary ewebkit2
+ *
+ *  This example shows very simple ewebkit example that load from text
+ */
 #include <Elementary.h>
+// Include header file.
 #include <EWebKit2.h>
 
-void on_done(void *userData, Evas_Object *webView, void *eventInfo)
+void on_done(void *user_data, Evas_Object *web_view, void *event_info)
 {
    elm_exit();
 }
@@ -10,6 +14,7 @@ void on_done(void *userData, Evas_Object *webView, void *eventInfo)
 EAPI_MAIN int
 elm_main(int argc, char *argv[])
 {
+   // Initialize ewebkit.
    ewk_init();
 
    Evas_Object* win;
@@ -24,9 +29,13 @@ elm_main(int argc, char *argv[])
    elm_win_resize_object_add(win, bg);
    evas_object_show(bg);
 
+   // create very simple ewk_view.
    Evas_Object* ewk = ewk_view_add(evas_object_evas_get(win));
-   ewk_view_url_set(ewk, "http://bunhere.tistory.com");
 
+   // load from string.
+   ewk_view_html_string_load(ewk, "<!doctype html><body>Hello</body>", NULL, NULL);
+
+   // locate ewk_view at (0,0,400,400)
    evas_object_resize(ewk, 400, 400);
    evas_object_move(ewk, 0, 0);
    evas_object_show(ewk);
@@ -34,8 +43,11 @@ elm_main(int argc, char *argv[])
    evas_object_resize(win, 400, 400);
    evas_object_show(win);
 
+   // execute main loop, ewk_view will do a lot of operation for loading url.
    elm_run();
 
+   // Before terminated process, please deinitialize ewebkit.
    ewk_shutdown();
 }
 ELM_MAIN()
+
