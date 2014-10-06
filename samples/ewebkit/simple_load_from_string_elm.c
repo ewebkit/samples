@@ -32,8 +32,9 @@ elm_main(int argc, char *argv[])
    // create very simple ewk_view.
    Evas_Object* ewk = ewk_view_add(evas_object_evas_get(win));
 
-   // load from string.
-   ewk_view_html_string_load(ewk, "<!doctype html><body>Hello</body>", NULL, NULL);
+   // load from string. last argument is unreachableUrl
+   ewk_view_html_string_load(ewk, "<!doctype html><body>Hello <img src=\"./resources/logo.png\"></body>", "file:///workspace/project/toy/ewebkit/samples/samples/ewebkit/", NULL);
+   // ewk_view_html_string_load(ewk, "<!doctype html><body>Hello <img src=\"./logo.png\"></body>", "http://enlightenment.org/p/index/d/", NULL);
 
    // locate ewk_view at (0,0,400,400)
    evas_object_resize(ewk, 400, 400);
