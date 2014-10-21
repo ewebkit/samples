@@ -11,6 +11,13 @@ void on_done(void *user_data, Evas_Object *web_view, void *event_info)
    elm_exit();
 }
 
+static void
+progress_cb(void *user_data, Evas_Object *ewk, void *event_info)
+{
+    double progress = *(double*)event_info;
+    printf("Load %2.3f\n", progress);
+}
+
 EAPI_MAIN int
 elm_main(int argc, char *argv[])
 {
@@ -31,6 +38,9 @@ elm_main(int argc, char *argv[])
 
    // create very simple ewk_view.
    Evas_Object* ewk = ewk_view_add(evas_object_evas_get(win));
+
+   // register callback.
+   evas_object_smart_callback_add(ewk, "load,progress", progress_cb, NULL);
 
    // load specific url.
    ewk_view_url_set(ewk, "http://bunhere.tistory.com");
